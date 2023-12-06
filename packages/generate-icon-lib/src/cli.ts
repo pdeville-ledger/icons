@@ -43,12 +43,14 @@ async function main() {
     }
   );
 
-  if (!cli.flags.file) {
+  const fileEnvId = process.env.FIGMA_ICON_FILE_ID;
+
+  if (!fileEnvId && !cli.flags.file) {
     cli.showHelp(1);
   }
 
-  const figmaConfig = createFigmaConfig(cli.flags.file);
-  render({ fileKey: cli.flags.file });
+  const figmaConfig = createFigmaConfig(fileEnvId || cli.flags.file);
+  render({ fileKey: fileEnvId || cli.flags.file });
 
   /* 1. Request the figma document, to source all visual nodes */
   render({
@@ -57,10 +59,7 @@ async function main() {
 
   const document = await getFigmaDocument(figmaConfig);
   render({
-    spinners: [
-      { success: true, text: 'Found the Figma file 👌' },
-      { text: 'Finding all Icons in the designs...' },
-    ],
+    spinners: [{ success: true, text: 'Found the Figma file 👌' }, { text: 'Finding all Icons in the designs...' }],
   });
 
   /* 2. Filter nodes for our Icons page */
@@ -143,9 +142,7 @@ async function main() {
 
   /* 6. Generate React Components from the SVGs */
 
-  const [previousIconManifest, nextIconManifest] = await generateIconManifest(
-    icons
-  );
+  const [previousIconManifest, nextIconManifest] = await generateIconManifest(icons);
 
   render({
     spinners: [
@@ -160,10 +157,7 @@ async function main() {
   });
 
   /* 7. Apply all new files, while removing previous dirs/files entirely. */
-  const touchedPaths = await swapGeneratedFiles(
-    previousIconManifest,
-    nextIconManifest
-  );
+  const touchedPaths = await swapGeneratedFiles(previousIconManifest, nextIconManifest);
 
   render({
     spinners: [
@@ -191,6 +185,6 @@ main()
   .then(() => {
     console.log('Bai 👋');
   })
-  .catch(err => handleError(err));
+  .catch((err) => handleError(err));
 
-process.addListener('unhandledRejection', err => handleError(err));
+process.addListener('unhandledRejection', (err) => handleError(err));

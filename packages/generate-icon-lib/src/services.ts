@@ -42,16 +42,17 @@ const transformers = {
    */
   injectCurrentColor(svgRaw: string) {
     const $ = cheerio.load(svgRaw, { xmlMode: true });
-    $('*').each((i, el) => {
-      Object.keys(el.attribs).forEach((attrKey) => {
-        if (['fill', 'stroke'].includes(attrKey)) {
-          const val = $(el).attr(attrKey);
-          if (val !== 'none') {
-            $(el).attr(attrKey, 'currentColor');
-          }
-        }
-      });
-    });
+    // $('*').each((i, el) => {
+    //   if (el.attribs)
+    //     Object.keys(el.attribs).forEach((attrKey) => {
+    //       if (['fill', 'stroke'].includes(attrKey)) {
+    //         const val = $(el).attr(attrKey);
+    //         if (val !== 'none') {
+    //           $(el).attr(attrKey, 'currentColor');
+    //         }
+    //       }
+    //     });
+    // });
 
     return $.xml();
   },
@@ -64,14 +65,14 @@ const transformers = {
   readyForJSX(svgRaw: string) {
     const $ = cheerio.load(svgRaw, { xmlMode: true });
     $('*').each((i, el) => {
-      Object.keys(el.attribs).forEach((attrKey) => {
-        if (attrKey.includes('-')) {
-          $(el).attr(_.camelCase(attrKey), el.attribs[attrKey]).removeAttr(attrKey);
-        }
-        if (attrKey === 'class') {
-          $(el).attr('className', el.attribs[attrKey]).removeAttr(attrKey);
-        }
-      });
+      // Object.keys(el.attribs).forEach((attrKey) => {
+      //   if (attrKey.includes('-')) {
+      //     $(el).attr(_.camelCase(attrKey), el.attribs[attrKey]).removeAttr(attrKey);
+      //   }
+      //   if (attrKey === 'class') {
+      //     $(el).attr('className', el.attribs[attrKey]).removeAttr(attrKey);
+      //   }
+      // });
     });
 
     return $('svg')
@@ -221,12 +222,17 @@ export async function renderIdsToSvgs(ids: string[], config: IFigmaConfig): Prom
 }
 
 export function getIconsPage(document: IFigmaDocument): IFigmaCanvas | null {
-  const canvas = document.children.find((page) => page.name.toLowerCase() === 'icons');
+  const canvas = document.children.find((page) => page.name.toLowerCase() === 'MyIcons');
 
+  console.log('canvas ?', canvas.name);
   return canvas && canvas.type === 'CANVAS' ? canvas : null;
 }
 
 export function getIcons(iconsCanvas: IFigmaCanvas): IIcons {
+  console.log(
+    'iconsCanvas',
+    iconsCanvas.children.map((i) => i.name)
+  );
   return iconsCanvas.children.reduce((icons: IIcons, iconSetNode) => {
     // We technically don't want icon sets to be in Groups, but we should still allow it
     if (iconSetNode.type === 'FRAME' || iconSetNode.type === 'GROUP') {
@@ -260,7 +266,9 @@ export function getIcons(iconsCanvas: IFigmaCanvas): IIcons {
 export async function downloadSvgsToFs(urls: IIconsSvgUrls, icons: IIcons, onProgress: () => void) {
   await Promise.all(
     Object.keys(urls).map(async (iconId) => {
-      const processedSvg = await (await fetch(urls[iconId]))
+      const processedSvg = await (
+        await fetch(urls[iconId])
+      )
         .text()
         .then(async (svgRaw) => transformers.passSVGO(svgRaw))
         .then((svgRaw) => transformers.injectCurrentColor(svgRaw))
