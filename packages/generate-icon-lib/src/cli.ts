@@ -11,9 +11,9 @@ import {
   downloadSvgsToFs,
   getGitCustomDiff,
   renderIdsToSvgs,
-  getIconsPage,
+  getPageByName,
   prechecks,
-  getIcons,
+  getIconsByNames,
 } from './services';
 import { handleError } from './utils';
 import { render, unmount } from './view';
@@ -63,7 +63,14 @@ async function main() {
   });
 
   /* 2. Filter nodes for our Icons page */
-  const iconsCanvas = getIconsPage(document);
+  const pagesToFetch = [
+    {
+      name: '01. MyIcons',
+      icons: ['16 XS'],
+    },
+  ];
+
+  const iconsCanvas = getPageByName(document, pagesToFetch[0].name);
   if (!iconsCanvas) {
     throw new CodedError(
       ERRORS.NO_ICONS_PAGE,
@@ -71,8 +78,10 @@ async function main() {
     );
   }
 
+  console.log(pagesToFetch[0].name, 'page fetched');
+
   /* 3. Transform the Icons page into a flat dictionary of icons, labeled by their path */
-  const icons = getIcons(iconsCanvas);
+  const icons = getIconsByNames(iconsCanvas, pagesToFetch[0].icons[0]);
   const iconIds = Object.keys(icons);
   if (!iconIds.length) {
     throw new CodedError(

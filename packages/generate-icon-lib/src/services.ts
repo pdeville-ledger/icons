@@ -221,46 +221,62 @@ export async function renderIdsToSvgs(ids: string[], config: IFigmaConfig): Prom
   return data.images;
 }
 
-export function getIconsPage(document: IFigmaDocument): IFigmaCanvas | null {
-  const canvas = document.children.find((page) => page.name.toLowerCase() === 'MyIcons');
+export function getPageByName(document: IFigmaDocument, name: string): IFigmaCanvas | null {
+  const canvas = document.children.find((page) => page.name.toLowerCase() === name.toLocaleLowerCase());
 
+  // console.log(
+  //   ' document.children',
+  //   document.children.map((i) => i.name)
+  // );
   console.log('canvas ?', canvas.name);
   return canvas && canvas.type === 'CANVAS' ? canvas : null;
 }
 
-export function getIcons(iconsCanvas: IFigmaCanvas): IIcons {
+function removePrefix(iconSetName: string, iconName: string): string {
+  const prefix = iconSetName.replace(/\s/g, ''); // Remove spaces from iconSetName
+  const regex = new RegExp(`^${prefix}`, 'i'); // Create a case-insensitive regex pattern
+
+  return iconName.replace(regex, '');
+}
+
+export function getIconsByNames(iconsCanvas: IFigmaCanvas, iconSetName: string): IIcons {
   console.log(
     'iconsCanvas',
     iconsCanvas.children.map((i) => i.name)
+    // iconsCanvas.children.flatMap((c) => c.children.map((i) => i.name))
   );
-  return iconsCanvas.children.reduce((icons: IIcons, iconSetNode) => {
-    // We technically don't want icon sets to be in Groups, but we should still allow it
-    if (iconSetNode.type === 'FRAME' || iconSetNode.type === 'GROUP') {
-      iconSetNode.children.forEach((iconNode) => {
-        // Our individual icons frames may be Figma "Components" 🤙
-        if (iconNode.type === 'FRAME' || iconNode.type === 'COMPONENT') {
-          // 'Break Link' => 'break-link'
-          // 'GitHub Logo' => 'github-logo'
-          const svgName = _.kebabCase(iconNode.name.toLowerCase());
+  const iconByName = iconsCanvas.children
+    .find((i) => i.name.toLocaleLowerCase() === iconSetName.toLocaleLowerCase())
+    // in ledger structure there is the name and the icons delete name called frame XXXXXX
+    .children.filter((i) => i.name.indexOf('Frame') == -1)?.[0] as IFigmaCanvas;
+  console.log('icons', iconByName.children[0]);
+  return iconByName.children
+    .map((iconNode) => {
+      // Our individual icons frames may be Figma "Components" 🤙
+      if (iconNode.type === 'FRAME' || iconNode.type === 'COMPONENT') {
+        // 'Break Link' => 'break-link'
+        // 'GitHub Logo' => 'github-logo'
+        const svgName = _.kebabCase(iconNode.name.toLowerCase());
 
-          // We insert whitespace between lower and uppercase letters
-          // to make sure that lodash preserves existing camel-casing.
-          // 'Break Link' => 'BreakLink'
-          // 'GitHub Logo' => 'GitHubLogo'
-          const jsxName = _.upperFirst(_.camelCase(iconNode.name.replace(/([0-9a-z])([0-9A-Z])/g, '$1 $2')));
+        // We insert whitespace between lower and uppercase letters
+        // to make sure that lodash preserves existing camel-casing.
+        // 'Break Link' => 'BreakLink'
+        // 'GitHub Logo' => 'GitHubLogo'
+        const jsxName = _.upperFirst(_.camelCase(iconNode.name.replace(/([0-9a-z])([0-9A-Z])/g, '$1 $2')));
 
-          icons[iconNode.id] = {
-            jsxName,
-            svgName,
-            id: iconNode.id,
-            size: labelling.sizeFromFrameNodeName(iconSetNode.name),
-            type: labelling.typeFromFrameNodeName(iconSetNode.name),
-          };
-        }
-      });
-    }
-    return icons;
-  }, {});
+        return {
+          jsxName: removePrefix(iconSetName, jsxName),
+          svgName,
+          id: iconNode.id,
+          size: labelling.sizeFromFrameNodeName(iconSetName),
+          type: labelling.typeFromFrameNodeName(iconSetName),
+        };
+      }
+    })
+    .reduce((acc, item) => {
+      acc[item.id] = item;
+      return acc;
+    }, {} as IIcons);
 }
 
 export async function downloadSvgsToFs(urls: IIconsSvgUrls, icons: IIcons, onProgress: () => void) {
