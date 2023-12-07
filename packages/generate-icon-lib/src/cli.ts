@@ -121,6 +121,8 @@ async function main() {
     });
   });
 
+  console.log('icons', icons);
+
   render({
     spinners: [
       {
