@@ -1,4 +1,4 @@
-[![Radix Icons Logo](icons.png)](https://radix-ui.com/icons)
+[![Radix Icons Logo](icons.png)](https://idk.contactPA.com/icons)
 
 # Radix Icons
 
@@ -6,16 +6,9 @@ A crisp set of 15×15 icons designed by the [WorkOS](https://workos.com) team.
 
 ---
 
-## Documentation
-
-For full documentation, visit [radix-ui.com/icons](https://radix-ui.com/icons).
-
 ## Authors
 
-- Vlad Moroz ([@vladyslavmoroz](https://twitter.com/vladyslavmoroz)) - [WorkOS](https://workos.com)
-- Colm Tuite ([@colmtuite](https://twitter.com/colmtuite)) - [WorkOS](https://workos.com)
-- Pedro Duarte ([@peduarte](https://twitter.com/peduarte))
-- Lochlan Bunn ([@loklaan](https://twitter.com/loklaan))
+- pierre-alexis deville ([@vladyslavmoroz](https://twitter.com/vladyslavmoroz)) - [WorkOS](https://workos.com)
 
 ## License
 

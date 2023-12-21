@@ -1,5 +1,5 @@
 import React from 'react';
-import * as Icons from '@radix-ui/react-icons';
+import * as Icons from '@ledgerHq/react-icons';
 import { Box, Grid, Text, Tooltip, styled } from '@modulz/design-system';
 import { CopyToastVisibility } from './CopyToast';
 import { ChromelessButton } from './ChromelessButton';
