@@ -14,7 +14,7 @@ export const ShieldCheckNotificationIcon = React.forwardRef<SVGSVGElement, IconP
         ref={forwardedRef}
       >
         <g clip-path="url(#clip0_3_369)">
-          <mask id="a" style="mask-type: alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="16" height="16">
+          <mask id="a" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="0" width="16" height="16">
             <path
               fill-rule="evenodd"
               clip-rule="evenodd"

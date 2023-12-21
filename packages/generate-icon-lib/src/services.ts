@@ -325,6 +325,17 @@ export function filePathToSVGinJSXSync(filePath: string) {
   return transformers.readyForJSX(svgRaw);
 }
 
+const fixStyleAttribute = (svgString: string) => {
+  // Replace style attribute in mask with maskType attribute
+  // Replace style attribute in mask with style={{ maskType: 'alpha' }}
+  const updatedSvgString = svgString.replace(
+    /<mask([^>]*)style="mask-type: alpha"([^>]*)>/g,
+    '<mask$1style={{ maskType: "alpha" }}$2>'
+  );
+
+  return updatedSvgString;
+};
+
 export async function generateReactComponents(icons: IIcons) {
   const getTemplateSource = (templateFile) =>
     fs.readFile(path.resolve(__dirname, './templates/', templateFile), {
@@ -332,7 +343,7 @@ export async function generateReactComponents(icons: IIcons) {
     });
   const templates = {
     entry: await getTemplateSource('entry.tsx.ejs'),
-    icon: await getTemplateSource('named-icon.tsx.ejs'),
+    icon: fixStyleAttribute(await getTemplateSource('named-icon.tsx.ejs')),
     types: await getTemplateSource('types.tsx'),
   };
   const firstIcon = Object.values(icons)[0];
@@ -400,6 +411,7 @@ export async function generateReactComponents(icons: IIcons) {
       icon,
       ...templateHelpers,
     });
+    iconSourceRaw = fixStyleAttribute(iconSourceRaw);
     const iconSource = prettier.format(iconSourceRaw, {
       ...prettierOptions,
       parser: 'typescript',
