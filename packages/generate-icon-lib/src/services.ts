@@ -239,7 +239,7 @@ function removePrefix(iconSetName: string, iconName: string): string {
   return iconName.replace(regex, '');
 }
 
-export function getIconsByNames(iconsCanvas: IFigmaCanvas, iconSetName: string): IIcons {
+export function getIconsByNames(iconsCanvas: IFigmaCanvas, iconSetName: string, type: string, size: string): IIcons {
   console.log(
     'iconsCanvas',
     iconsCanvas.children.map((i) => i.name)
@@ -249,7 +249,6 @@ export function getIconsByNames(iconsCanvas: IFigmaCanvas, iconSetName: string):
     .find((i) => i.name.toLocaleLowerCase() === iconSetName.toLocaleLowerCase())
     // in ledger structure there is the name and the icons delete name called frame XXXXXX
     .children.filter((i) => i.name.indexOf('Frame') == -1)?.[0] as IFigmaCanvas;
-  console.log('icons', iconByName.children[0]);
   return iconByName.children
     .map((iconNode) => {
       // Our individual icons frames may be Figma "Components" 🤙
@@ -266,10 +265,10 @@ export function getIconsByNames(iconsCanvas: IFigmaCanvas, iconSetName: string):
 
         return {
           jsxName: removePrefix(iconSetName, jsxName),
-          svgName,
+          svgName: removePrefix(iconSetName, jsxName),
           id: iconNode.id,
-          size: labelling.sizeFromFrameNodeName(iconSetName),
-          type: labelling.typeFromFrameNodeName(iconSetName),
+          size,
+          type,
         };
       }
     })
@@ -439,6 +438,7 @@ export async function getCurrentIconManifest(): Promise<IIconManifest> {
 export async function generateIconManifest(icons: IIcons) {
   const iconManifestFilePath = path.resolve(currentTempDir, FILE_PATH_MANIFEST);
   const iconManifest = iconsToManifest(icons);
+  console.log('iconManifest', iconManifest);
   let iconManifestRaw = JSON.stringify(iconManifest);
   const prettierOptions = prettier.resolveConfig.sync(process.cwd());
   iconManifestRaw = prettier.format(iconManifestRaw, {
@@ -450,6 +450,7 @@ export async function generateIconManifest(icons: IIcons) {
     encoding: 'utf8',
   });
   currentListOfAddedFiles.push(iconManifestFilePath);
+  return [];
   return [previousIconManifest, iconManifest];
 }
 

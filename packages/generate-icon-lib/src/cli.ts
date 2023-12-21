@@ -65,12 +65,14 @@ async function main() {
   /* 2. Filter nodes for our Icons page */
   const pagesToFetch = [
     {
-      name: '01. MyIcons',
+      fileName: '01. MyIcons',
       icons: ['16 XS'],
+      type: 'icons',
+      name: 'xs',
     },
   ];
 
-  const iconsCanvas = getPageByName(document, pagesToFetch[0].name);
+  const iconsCanvas = getPageByName(document, pagesToFetch[0].fileName);
   if (!iconsCanvas) {
     throw new CodedError(
       ERRORS.NO_ICONS_PAGE,
@@ -81,7 +83,7 @@ async function main() {
   console.log(pagesToFetch[0].name, 'page fetched');
 
   /* 3. Transform the Icons page into a flat dictionary of icons, labeled by their path */
-  const icons = getIconsByNames(iconsCanvas, pagesToFetch[0].icons[0]);
+  const icons = getIconsByNames(iconsCanvas, pagesToFetch[0].icons[0], pagesToFetch[0].type, pagesToFetch[0].name);
   const iconIds = Object.keys(icons);
   if (!iconIds.length) {
     throw new CodedError(
@@ -152,7 +154,6 @@ async function main() {
   });
 
   /* 6. Generate React Components from the SVGs */
-
   const [previousIconManifest, nextIconManifest] = await generateIconManifest(icons);
 
   render({
