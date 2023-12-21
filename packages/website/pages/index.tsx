@@ -8,7 +8,7 @@ import {
   GitHubLogoIcon,
   IconJarLogoIcon,
   SketchLogoIcon,
-} from '@radix-ui/react-icons';
+} from '@ledgerhq/react-icons';
 import { Hero } from '../components/Hero';
 import { Menu } from '../components/Menu';
 import { CopyToast, CopyToastVisibility } from '../components/CopyToast';
