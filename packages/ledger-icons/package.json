@@ -3,11 +3,9 @@
   "private": false,
   "version": "1.3.0",
   "license": "MIT",
-  "description": "Radix UI React Icon Set",
+  "description": "ledger UI React Icon Set",
   "authors": [
-    "Vlad Moroz <vlad@workos.com>",
-    "Pedro Duarte",
-    "Colm Tuite <colm@workos.com>"
+    "pierre-alexis deville"
   ],
   "module": "dist/react-icons.esm.js",
   "main": "index.js",
@@ -24,7 +22,7 @@
     "access": "public"
   },
   "scripts": {
-    "generate-src": "generate-icon-lib --file=9Df5CaFUEomVzn20gRpaX3 && zip -r ../../../radix-icons.zip ./",
+    "generate-src": "generate-icon-lib --file=9Df5CaFUEomVzn20gRpaX3 && zip -r ../../../ledger-icons.zip ./",
     "build": "rimraf dist && tsdx build --format es,cjs --entry src/index.tsx",
     "watch": "rimraf dist && tsdx watch --format es,cjs --entry src/index.tsx",
     "prepublishOnly": "npm run build"

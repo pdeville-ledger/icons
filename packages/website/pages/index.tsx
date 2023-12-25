@@ -1,14 +1,7 @@
 import React from 'react';
 import useDarkMode from 'use-dark-mode';
 import { Box, Container, DesignSystemProvider, Text, Link, darkTheme } from '@modulz/design-system';
-import {
-  CubeIcon,
-  DownloadIcon,
-  FigmaLogoIcon,
-  GitHubLogoIcon,
-  IconJarLogoIcon,
-  SketchLogoIcon,
-} from '@ledgerhq/react-icons';
+import { AppsIcon, LinkedinIcon } from '@ledgerhq/react-icons';
 import { Hero } from '../components/Hero';
 import { Menu } from '../components/Menu';
 import { CopyToast, CopyToastVisibility } from '../components/CopyToast';
@@ -90,7 +83,7 @@ export default function Home() {
                     >
                       <IconLink href="https://www.figma.com/file/9Df5CaFUEomVzn20gRpaX3/Radix-Icons" target="_blank">
                         <Box as="span" css={{ mr: '$2' }}>
-                          <FigmaLogoIcon />
+                          <LinkedinIcon />
                         </Box>
                         Open in Figma
                       </IconLink>
@@ -99,7 +92,7 @@ export default function Home() {
                         target="_blank"
                       >
                         <Box as="span" css={{ mr: '$2' }}>
-                          <SketchLogoIcon />
+                          <AppsIcon />
                         </Box>
                         Download for Sketch
                       </IconLink>
@@ -108,7 +101,7 @@ export default function Home() {
                         target="_blank"
                       >
                         <Box as="span" css={{ mr: '$2' }}>
-                          <IconJarLogoIcon />
+                          <AppsIcon />
                         </Box>
                         Download IconJar
                       </IconLink>
@@ -117,25 +110,25 @@ export default function Home() {
                         target="_blank"
                       >
                         <Box as="span" css={{ mr: '$2' }}>
-                          <DownloadIcon />
+                          <AppsIcon />
                         </Box>
                         Download SVG
                       </IconLink>
                       <IconLink href="https://www.npmjs.com/package/@radix-ui/react-icons" target="_blank">
                         <Box as="span" css={{ mr: '$2' }}>
-                          <CubeIcon />
+                          <AppsIcon />
                         </Box>
                         Install with npm
                       </IconLink>
                       <IconLink href="https://github.com/radix-ui/icons" target="_blank">
                         <Box as="span" css={{ mr: '$2' }}>
-                          <GitHubLogoIcon />
+                          <AppsIcon />
                         </Box>
                         View on GitHub
                       </IconLink>
                     </Text>
                   </Box>
-                  <Box
+                  {/* <Box
                     css={{
                       gridColumn: '1 / 3',
                       gridRow: '1 / 3',
@@ -175,7 +168,7 @@ function MyComponent () {
                       <Link href="https://github.com/radix-ui/icons/blob/master/LICENSE">MIT License</Link>. Copyright
                       © 2022–present WorkOS.
                     </Text>
-                  </Box>
+                  </Box> */}
                 </Box>
               </Section>
             </Box>
