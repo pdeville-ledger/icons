@@ -239,7 +239,7 @@ function removePrefix(iconSetName: string, iconName: string): string {
   return iconName.replace(regex, '');
 }
 
-export function getIconsByNames(iconsCanvas: IFigmaCanvas, iconSetName: string, type: string, size: string): IIcons {
+export function getIconsByNames(iconsCanvas: any, iconSetName: string, type: string, size: string): IIcons {
   console.log(
     'iconsCanvas',
     iconsCanvas.children.map((i) => i.name)
@@ -248,7 +248,9 @@ export function getIconsByNames(iconsCanvas: IFigmaCanvas, iconSetName: string, 
   const iconByName = iconsCanvas.children
     .find((i) => i.name.toLocaleLowerCase() === iconSetName.toLocaleLowerCase())
     // in ledger structure there is the name and the icons delete name called frame XXXXXX
-    .children.filter((i) => i.name.indexOf('Frame') == -1)?.[0] as IFigmaCanvas;
+    // I need to fix this type but for now it works fine
+    // will work with IFigmaCanvas probably
+    .children.filter((i: IFigmaCanvas) => i.name.indexOf('Frame') == -1)?.[0] as IFigmaCanvas;
   return iconByName.children
     .map((iconNode) => {
       // Our individual icons frames may be Figma "Components" 🤙
@@ -374,13 +376,13 @@ export async function generateReactComponents(icons: IIcons) {
       return firstIcon.type;
     },
     iconToComponentName(icon: ITemplateIcon) {
-      return `${icon.jsxName}Icon`;
+      return `${icon.jsxName}`;
     },
     iconToPropsName(icon: ITemplateIcon) {
-      return `${icon.jsxName}IconProps`;
+      return `${icon.jsxName}Props`;
     },
     iconToReactFileName(icon: ITemplateIcon) {
-      return `${icon.jsxName}Icon.tsx`;
+      return `${icon.jsxName}.tsx`;
     },
     iconToSVGSourceAsJSX(icon: ITemplateIcon, size: string, type: string) {
       const filePath = labelling.filePathFromIcon({

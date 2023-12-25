@@ -12,6 +12,7 @@
     "icons": "lerna exec --scope @ledgerhq/react-icons -- yarn watch",
     "icons:build": "lerna exec --scope @ledgerhq/react-icons -- yarn build",
     "website:build": "lerna exec --scope website -- yarn build",
+    "website:watch": "lerna exec --scope website -- yarn dev",
     "prettier": "prettier './**/*.{js,jsx,ts,tsx,json,yml,yaml,css,md,mdx}' --write",
     "lint": "eslint './packages/**/*.{js,jsx,ts,tsx}'",
     "clean": "npm run clean-logs && npm run clean-modules",

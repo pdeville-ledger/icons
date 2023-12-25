@@ -23,7 +23,7 @@ export default function Home() {
 
   const setToastIsVisibleTimeout = () => {
     setToastIsVisible(true);
-    clearTimeout(toastTimeout);
+    // clearTimeout(toastTimeout);
     setToastTimeout(setTimeout(() => setToastIsVisible(false), 3000));
   };
 
