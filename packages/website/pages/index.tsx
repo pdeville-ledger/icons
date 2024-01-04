@@ -1,7 +1,7 @@
 import React from 'react';
 import useDarkMode from 'use-dark-mode';
 import { Box, Container, DesignSystemProvider, Text, Link, darkTheme } from '@modulz/design-system';
-import { AppsIcon, LinkedinIcon } from '@ledgerhq/react-icons';
+import { Apps, Github, Linkedin } from '@ledgerhq/react-icons';
 import { Hero } from '../components/Hero';
 import { Menu } from '../components/Menu';
 import { CopyToast, CopyToastVisibility } from '../components/CopyToast';
@@ -81,94 +81,29 @@ export default function Home() {
                       size="3"
                       css={{ display: 'flex', flexFlow: 'column', alignItems: 'start', mt: '$2', lineHeight: '25px' }}
                     >
-                      <IconLink href="https://www.figma.com/file/9Df5CaFUEomVzn20gRpaX3/Radix-Icons" target="_blank">
+                      <IconLink
+                        href="https://www.figma.com/file/4ZD0Q8lAdv9Bcd7iiW6Cnk/%E2%AD%90-Icons?type=design&node-id=3-55&mode=design&t=CEkL5tWr72SrJuJp-0"
+                        target="_blank"
+                      >
                         <Box as="span" css={{ mr: '$2' }}>
-                          <LinkedinIcon />
+                          <Apps />
                         </Box>
                         Open in Figma
                       </IconLink>
-                      <IconLink
-                        href="https://raw.githubusercontent.com/radix-ui/icons/master/Radix-Icons.sketch"
-                        target="_blank"
-                      >
+                      <IconLink href="https://www.npmjs.com/package/@ledgerHQ/react-icons" target="_blank">
                         <Box as="span" css={{ mr: '$2' }}>
-                          <AppsIcon />
-                        </Box>
-                        Download for Sketch
-                      </IconLink>
-                      <IconLink
-                        href="https://raw.githubusercontent.com/radix-ui/icons/master/Radix-Icons.iconjar.zip"
-                        target="_blank"
-                      >
-                        <Box as="span" css={{ mr: '$2' }}>
-                          <AppsIcon />
-                        </Box>
-                        Download IconJar
-                      </IconLink>
-                      <IconLink
-                        href="https://raw.githubusercontent.com/radix-ui/icons/master/radix-icons.zip"
-                        target="_blank"
-                      >
-                        <Box as="span" css={{ mr: '$2' }}>
-                          <AppsIcon />
-                        </Box>
-                        Download SVG
-                      </IconLink>
-                      <IconLink href="https://www.npmjs.com/package/@radix-ui/react-icons" target="_blank">
-                        <Box as="span" css={{ mr: '$2' }}>
-                          <AppsIcon />
+                          <Apps />
                         </Box>
                         Install with npm
                       </IconLink>
                       <IconLink href="https://github.com/radix-ui/icons" target="_blank">
                         <Box as="span" css={{ mr: '$2' }}>
-                          <AppsIcon />
+                          <Github />
                         </Box>
                         View on GitHub
                       </IconLink>
                     </Text>
                   </Box>
-                  {/* <Box
-                    css={{
-                      gridColumn: '1 / 3',
-                      gridRow: '1 / 3',
-                      '@media (max-width: 749px)': { marginBottom: '$5' },
-                    }}
-                  >
-                    <Text as="h3" size="5" css={{ fontWeight: 500, letterSpacing: '-0.02em', lineHeight: '30px' }}>
-                      React components
-                    </Text>
-                    <Text as="p" size="3" css={{ mt: '$2', lineHeight: '25px' }}>
-                      All icons are available as individual React components. Install Radix Icons from npm:
-                    </Text>
-                    <CodeBlock css={{ mt: '$2' }}>npm install @radix-ui/react-icons</CodeBlock>
-                    <Text as="p" size="3" css={{ mt: '$2', lineHeight: '25px' }}>
-                      Import the icons into your React project:
-                    </Text>
-                    <CodeBlock css={{ mt: '$2' }}>
-                      {`import { FaceIcon, ImageIcon, SunIcon } from '@radix-ui/react-icons'
-
-function MyComponent () {
-  return (
-    <div>
-      <FaceIcon />
-      <SunIcon />
-      <ImageIcon />
-    </div>
-  )
-}`}
-                    </CodeBlock>
-                  </Box>
-                  <Box css={{ gridColumn: '3 / 4' }}>
-                    <Text as="h3" size="5" css={{ fontWeight: 500, letterSpacing: '-0.02em', lineHeight: '30px' }}>
-                      License
-                    </Text>
-                    <Text as="p" size="3" css={{ mt: '$2', lineHeight: '25px' }}>
-                      Licensed under the{' '}
-                      <Link href="https://github.com/radix-ui/icons/blob/master/LICENSE">MIT License</Link>. Copyright
-                      © 2022–present WorkOS.
-                    </Text>
-                  </Box> */}
                 </Box>
               </Section>
             </Box>

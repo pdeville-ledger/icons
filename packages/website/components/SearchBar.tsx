@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Flex, darkTheme } from '@modulz/design-system';
-import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
+import { Search } from '@ledgerhq/react-icons';
 import AutosizeInput from 'react-input-autosize';
 
 type SearchBarProps = {
@@ -14,7 +14,7 @@ export const SearchBar = ({ value, onValueChange }: SearchBarProps) => {
   return (
     <Flex css={{ alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid $slate5' }}>
       <Flex as="span" css={{ marginRight: '$1', color: '$slate10' }}>
-        <MagnifyingGlassIcon />
+        <Search />
       </Flex>
       <Box
         css={{

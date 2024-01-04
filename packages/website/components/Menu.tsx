@@ -72,32 +72,14 @@ export const Menu = () => {
           WebkitUserSelect: 'none',
         }}
       >
-        <MenuLink href="https://www.figma.com/file/9Df5CaFUEomVzn20gRpaX3/Radix-Icons" target="_blank">
+        <MenuLink
+          href="https://www.figma.com/file/4ZD0Q8lAdv9Bcd7iiW6Cnk/%E2%AD%90-Icons?type=design&node-id=3-55&mode=design&t=CEkL5tWr72SrJuJp-0"
+          target="_blank"
+        >
           <Box as="span" css={{ mr: '$2' }}>
             <FigmaLogoIcon />
           </Box>
           Open in Figma
-        </MenuLink>
-        <MenuLink href="https://raw.githubusercontent.com/radix-ui/icons/master/Radix-Icons.sketch" target="_blank">
-          <Box as="span" css={{ mr: '$2' }}>
-            <SketchLogoIcon />
-          </Box>
-          Download for Sketch
-        </MenuLink>
-        <MenuLink
-          href="https://raw.githubusercontent.com/radix-ui/icons/master/Radix-Icons.iconjar.zip"
-          target="_blank"
-        >
-          <Box as="span" css={{ mr: '$2' }}>
-            <IconJarLogoIcon />
-          </Box>
-          Download IconJar
-        </MenuLink>
-        <MenuLink href="https://raw.githubusercontent.com/radix-ui/icons/master/radix-icons.zip" target="_blank">
-          <Box as="span" css={{ mr: '$2' }}>
-            <DownloadIcon />
-          </Box>
-          Download SVG
         </MenuLink>
         <MenuLink href="https://www.npmjs.com/package/@radix-ui/react-icons" target="_blank">
           <Box as="span" css={{ mr: '$2' }}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import useDarkMode from 'use-dark-mode';
 import { Box, Text, darkTheme } from '@modulz/design-system';
-import { ArrowLeftIcon } from '@ledgerhq/react-icons';
+import { ArrowLeft } from '@ledgerhq/react-icons';
 
 export const Hero = () => {
   const darkMode = useDarkMode(undefined, {
@@ -76,7 +76,7 @@ export const Hero = () => {
           }}
         >
           <Box as="span" css={{ display: 'block' }}>
-            Radix
+            Ledger
           </Box>
           <Box
             as="span"
@@ -133,7 +133,7 @@ export const Hero = () => {
         <Line color="$mint5" angle="90deg" offset="0, 0" />
         <Line color="$mint5" angle="90deg" offset="1em, 0" />
 
-        <ArrowLeftIcon style={{ position: 'relative', width: '1em', height: '1em' }} />
+        <ArrowLeft style={{ position: 'relative', width: '1em', height: '1em' }} />
       </Box>
 
       <Text
@@ -169,7 +169,7 @@ export const Hero = () => {
           },
         }}
       >
-        A crisp set of 15×15 icons designed by the WorkOS team.
+        A set of icon designed by the Ledger design team
       </Text>
     </Box>
   );
