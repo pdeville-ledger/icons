@@ -228,7 +228,7 @@ export function getPageByName(document: IFigmaDocument, name: string): IFigmaCan
   //   ' document.children',
   //   document.children.map((i) => i.name)
   // );
-  console.log('canvas ?', canvas.name);
+  console.log('canvas name =>', canvas.name);
   return canvas && canvas.type === 'CANVAS' ? canvas : null;
 }
 
@@ -251,6 +251,8 @@ export function getIconsByNames(iconsCanvas: any, iconSetName: string, type: str
     // I need to fix this type but for now it works fine
     // will work with IFigmaCanvas probably
     .children.filter((i: IFigmaCanvas) => i.name.indexOf('Frame') == -1)?.[0] as IFigmaCanvas;
+
+  console.log('iconByName', iconByName);
   return iconByName.children
     .map((iconNode) => {
       // Our individual icons frames may be Figma "Components" 🤙
@@ -265,6 +267,7 @@ export function getIconsByNames(iconsCanvas: any, iconSetName: string, type: str
         // 'GitHub Logo' => 'GitHubLogo'
         const jsxName = _.upperFirst(_.camelCase(iconNode.name.replace(/([0-9a-z])([0-9A-Z])/g, '$1 $2')));
 
+        console.log('jsx', jsxName);
         return {
           jsxName: removePrefix(iconSetName, jsxName),
           svgName: removePrefix(iconSetName, jsxName),

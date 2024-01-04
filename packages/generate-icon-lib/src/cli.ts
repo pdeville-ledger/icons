@@ -1,7 +1,7 @@
 import path from 'path';
 import meow from 'meow';
 import chalk from 'chalk';
-import { CodedError, ERRORS } from './types';
+import { CodedError, ERRORS, IIcon } from './types';
 import {
   generateReactComponents,
   generateIconManifest,
@@ -64,27 +64,71 @@ async function main() {
 
   /* 2. Filter nodes for our Icons page */
   const pagesToFetch = [
+    // {
+    //   fileName: '01. MyIcons',
+    //   icons: ['16 XS'],
+    //   type: 'icons',
+    //   name: 'xs',
+    // },
     {
-      fileName: '01. MyIcons',
-      icons: ['16 XS'],
-      type: 'icons',
-      name: 'xs',
+      fileName: '03. Crypto',
+      icons: ['Icons'],
+      type: 'coins',
+      name: 'coins',
     },
   ];
 
-  const iconsCanvas = getPageByName(document, pagesToFetch[0].fileName);
-  if (!iconsCanvas) {
-    throw new CodedError(
-      ERRORS.NO_ICONS_PAGE,
-      'Expected an "Icons" page to exist in the Figma File. Please rename your primary page to "Icons" if you have not already.'
-    );
-  }
+  let icons = {};
 
-  console.log(pagesToFetch[0].name, 'page fetched');
+  const iconsCryptoCanvas = getPageByName(document, '03. Crypto') as any;
 
-  /* 3. Transform the Icons page into a flat dictionary of icons, labeled by their path */
-  const icons = getIconsByNames(iconsCanvas, pagesToFetch[0].icons[0], pagesToFetch[0].type, pagesToFetch[0].name);
+  console.log('icons Canvas', iconsCryptoCanvas.name);
+
+  const iconCryptoSet: IIcon[] = iconsCryptoCanvas.children
+    .find((i) => i.name.toLocaleLowerCase() === 'Icons'.toLocaleLowerCase())
+    .children.find((i) => i.name.toLocaleLowerCase() === 'Section'.toLocaleLowerCase())
+    .children.find((i) => i.name.toLocaleLowerCase() === 'Frame 1000002200'.toLocaleLowerCase())
+    .children.find((i) => i.name.toLocaleLowerCase() === 'Coin'.toLocaleLowerCase())
+    .children.filter((cryptoIcon) => cryptoIcon.name.includes('Size=XL'))
+    .map((icon) => {
+      const match = icon.name.match(/Asset=([^,]+)/);
+      const name = match ? match[1] : null;
+
+      return {
+        id: icon.id,
+        jsxName: name,
+        svgName: name,
+        type: 'coins',
+        size: 'coins',
+      } as IIcon;
+    })
+    .filter((icon) => !['_No data', 'Skeleton'].includes(icon.jsxName));
+
+  console.log('iconSet', iconCryptoSet);
+
+  return null;
+  pagesToFetch.forEach((pageToFetch) => {
+    const iconsCanvas = getPageByName(document, pageToFetch.fileName);
+    if (!iconsCanvas) {
+      throw new CodedError(
+        ERRORS.NO_ICONS_PAGE,
+        'Expected an "Icons" page to exist in the Figma File. Please rename your primary page to "Icons" if you have not already.'
+      );
+    }
+
+    console.log(pageToFetch.name, 'page fetched');
+    console.log('canvas', iconsCanvas);
+
+    /* 3. Transform the Icons page into a flat dictionary of icons, labeled by their path */
+    const newIcons = getIconsByNames(iconsCanvas, pageToFetch.icons[0], pageToFetch.type, pageToFetch.name);
+
+    icons = { ...icons, ...newIcons };
+  });
+
   const iconIds = Object.keys(icons);
+
+  console.log('ici');
+  return null;
   if (!iconIds.length) {
     throw new CodedError(
       ERRORS.NO_ICONS_IN_SETS,
