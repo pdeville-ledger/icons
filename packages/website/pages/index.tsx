@@ -58,54 +58,6 @@ export default function Home() {
               }}
             >
               <MainContent />
-              <Section>
-                <Box
-                  css={{
-                    '@media (max-width: 749px)': {
-                      display: 'flex',
-                      flexDirection: 'column',
-                    },
-                    '@media (min-width: 750px)': {
-                      display: 'grid',
-                      gridTemplateColumns: 'repeat(3, 1fr)',
-                      gridTemplateRows: 'auto 1fr',
-                      columnGap: '$8',
-                    },
-                  }}
-                >
-                  <Box css={{ mb: '$5', gridColumn: '3 / 4' }}>
-                    <Text as="h3" size="5" css={{ fontWeight: 500, letterSpacing: '-0.02em', lineHeight: '30px' }}>
-                      Assets
-                    </Text>
-                    <Text
-                      size="3"
-                      css={{ display: 'flex', flexFlow: 'column', alignItems: 'start', mt: '$2', lineHeight: '25px' }}
-                    >
-                      <IconLink
-                        href="https://www.figma.com/file/4ZD0Q8lAdv9Bcd7iiW6Cnk/%E2%AD%90-Icons?type=design&node-id=3-55&mode=design&t=CEkL5tWr72SrJuJp-0"
-                        target="_blank"
-                      >
-                        <Box as="span" css={{ mr: '$2' }}>
-                          <Apps />
-                        </Box>
-                        Open in Figma
-                      </IconLink>
-                      <IconLink href="https://www.npmjs.com/package/@ledgerHQ/react-icons" target="_blank">
-                        <Box as="span" css={{ mr: '$2' }}>
-                          <Apps />
-                        </Box>
-                        Install with npm
-                      </IconLink>
-                      <IconLink href="https://github.com/radix-ui/icons" target="_blank">
-                        <Box as="span" css={{ mr: '$2' }}>
-                          <Github />
-                        </Box>
-                        View on GitHub
-                      </IconLink>
-                    </Text>
-                  </Box>
-                </Box>
-              </Section>
             </Box>
           </Container>
           <CopyToast />

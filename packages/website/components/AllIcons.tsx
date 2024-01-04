@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Icons from '@ledgerHq/react-icons';
-import { Box, Grid, Text, Tooltip, styled } from '@modulz/design-system';
+import { Box, Grid, Tabs, TabsContent, TabsList, TabsTrigger, Text, Tooltip, styled } from '@modulz/design-system';
 import { CopyToastVisibility } from './CopyToast';
 import { ChromelessButton } from './ChromelessButton';
 
@@ -11,7 +11,6 @@ export const AllIcons = React.memo(() => {
     <Grid
       css={{
         padding: '0 $3 $2',
-        marginTop: '-$2',
 
         '@bp1': {
           padding: '0 $6 $1',
@@ -23,20 +22,42 @@ export const AllIcons = React.memo(() => {
         },
       }}
     >
-      <Box>
-        <Label>All Icons</Label>
-        <Group>
-          {iconNames.map((iconName, index) => {
-            const IconComponent = Icons[iconName];
-            return (
-              <CopyButton label={iconName} key={index}>
-                {<IconComponent />}
-                <Label>{iconName}</Label>
-              </CopyButton>
-            );
-          })}
-        </Group>
-      </Box>
+      <Tabs
+        defaultValue="allIcons"
+        css={{
+          marginTop: '$3',
+        }}
+      >
+        <TabsList
+          css={{
+            borderBottom: '2px solid $slate5',
+            marginBottom: '$1',
+          }}
+        >
+          <TabsTrigger value="allIcons" css={{ fontSize: '$3' }}>
+            All Icons
+          </TabsTrigger>
+          <TabsTrigger value="other" css={{ fontSize: '$3' }}>
+            Other
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="allIcons">
+          <Box>
+            <Group>
+              {iconNames.map((iconName, index) => {
+                const IconComponent = Icons[iconName];
+                return (
+                  <CopyButton label={iconName} key={index}>
+                    {<IconComponent />}
+                    <Label>{iconName}</Label>
+                  </CopyButton>
+                );
+              })}
+            </Group>
+          </Box>
+        </TabsContent>
+        <TabsContent value="other"></TabsContent>
+      </Tabs>
     </Grid>
   );
 });
