@@ -33,6 +33,13 @@ export function getCryptoIcons(document: IFigmaDocument): IIcon[] {
   return iconCryptoSet;
 }
 
+function removePrefix(iconSetName: string, iconName: string): string {
+  const prefix = iconSetName.replace(/\s/g, ''); // Remove spaces from iconSetName
+  const regex = new RegExp(`^${prefix}`, 'i'); // Create a case-insensitive regex pattern
+
+  return iconName.replace(regex, '');
+}
+
 /**
  * fetch Pages : My Icons
  * Fetching only 16XS icons
@@ -49,8 +56,9 @@ export function getBaseIcons(document: IFigmaDocument): IIcon[] {
     .children.filter((i: IFigmaCanvas) => i.name.indexOf('Frame') == -1)?.[0] as IFigmaCanvas;
 
   return iconByName.children.map((icon) => {
-    const name = _.upperFirst(_.camelCase(icon.name.replace(/([0-9a-z])([0-9A-Z])/g, '$1 $2')));
+    const name = removePrefix('16 XS', _.upperFirst(_.camelCase(icon.name.replace(/([0-9a-z])([0-9A-Z])/g, '$1 $2'))));
 
+    console.log('name', name);
     return {
       id: icon.id,
       jsxName: name,

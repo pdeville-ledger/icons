@@ -185,5 +185,47 @@
       "WirelessCharging": "icons/xs/WirelessCharging.svg",
       "Youtube": "icons/xs/Youtube.svg"
     }
+  },
+  "coins": {
+    "coins": {
+      "BTC": "coins/coins/BTC.svg",
+      "ETH": "coins/coins/ETH.svg",
+      "ALGO": "coins/coins/ALGO.svg",
+      "BNB": "coins/coins/BNB.svg",
+      "BCH": "coins/coins/BCH.svg",
+      "UNI": "coins/coins/UNI.svg",
+      "ETC": "coins/coins/ETC.svg",
+      "LTC": "coins/coins/LTC.svg",
+      "DOGE": "coins/coins/DOGE.svg",
+      "DOT": "coins/coins/DOT.svg",
+      "TRX": "coins/coins/TRX.svg",
+      "XLM": "coins/coins/XLM.svg",
+      "LINK": "coins/coins/LINK.svg",
+      "XTZ": "coins/coins/XTZ.svg",
+      "ATOM": "coins/coins/ATOM.svg",
+      "USDT": "coins/coins/USDT.svg",
+      "XRP": "coins/coins/XRP.svg",
+      "AION": "coins/coins/AION.svg",
+      "BAT": "coins/coins/BAT.svg",
+      "DAI": "coins/coins/DAI.svg",
+      "USDC": "coins/coins/USDC.svg",
+      "SOL": "coins/coins/SOL.svg",
+      "MATIC": "coins/coins/MATIC.svg",
+      "QNT": "coins/coins/QNT.svg",
+      "ADA": "coins/coins/ADA.svg",
+      "COMP": "coins/coins/COMP.svg",
+      "PPC": "coins/coins/PPC.svg",
+      "AVAX": "coins/coins/AVAX.svg",
+      "YLDY": "coins/coins/YLDY.svg",
+      "CRO": "coins/coins/CRO.svg",
+      "OMG": "coins/coins/OMG.svg",
+      "CELO": "coins/coins/CELO.svg",
+      "JASMY": "coins/coins/JASMY.svg",
+      "SHIBA": "coins/coins/SHIBA.svg",
+      "STETH": "coins/coins/STETH.svg",
+      "NEAR": "coins/coins/NEAR.svg",
+      "OSMO": "coins/coins/OSMO.svg",
+      "EGLD": "coins/coins/EGLD.svg"
+    }
   }
 }
