@@ -17,7 +17,7 @@ import {
 } from './services';
 import { handleError } from './utils';
 import { render, unmount } from './view';
-import { getCryptoIcons } from './iconsFetcher';
+import { getBaseIcons, getCryptoIcons } from './iconsFetcher';
 
 async function main() {
   await prechecks();
@@ -82,8 +82,9 @@ async function main() {
   let icons = {};
 
   const iconCryptoSet = getCryptoIcons(document);
+  const baseIcons = getBaseIcons(document);
 
-  console.log('iconSet', iconCryptoSet);
+  console.log('iconSet', baseIcons);
 
   return null;
   pagesToFetch.forEach((pageToFetch) => {
