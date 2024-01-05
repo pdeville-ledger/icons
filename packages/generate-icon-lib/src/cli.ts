@@ -82,8 +82,6 @@ async function main() {
   const iconCryptoSet = getCryptoIcons(document);
   const baseIcons = getBaseIcons(document);
 
-  console.log('iconSet', baseIcons);
-
   const icons = [...baseIcons, ...iconCryptoSet].reduce((acc, item) => {
     acc[item.id] = item;
     return acc;

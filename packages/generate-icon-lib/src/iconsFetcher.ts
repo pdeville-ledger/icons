@@ -2,6 +2,10 @@ import { getPageByName } from './services';
 import { IFigmaCanvas, IFigmaDocument, IIcon } from './types';
 import * as _ from 'lodash';
 
+/**
+ * fetch Pages : 0.3 Crypto
+ * Logo of crypto in Coin
+ */
 export function getCryptoIcons(document: IFigmaDocument): IIcon[] {
   const iconsCryptoCanvas = getPageByName(document, '03. Crypto') as any;
 
@@ -28,6 +32,11 @@ export function getCryptoIcons(document: IFigmaDocument): IIcon[] {
     .filter((icon) => !['_No data', 'Skeleton'].includes(icon.jsxName));
   return iconCryptoSet;
 }
+
+/**
+ * fetch Pages : My Icons
+ * Fetching only 16XS icons
+ */
 
 export function getBaseIcons(document: IFigmaDocument): IIcon[] {
   const iconsCanvas = getPageByName(document, '01. MyIcons') as any;
