@@ -1,7 +1,7 @@
 import path from 'path';
 import meow from 'meow';
 import chalk from 'chalk';
-import { CodedError, ERRORS, IIcon } from './types';
+import { CodedError, ERRORS, IIcon, IIcons } from './types';
 import {
   generateReactComponents,
   generateIconManifest,
@@ -63,52 +63,53 @@ async function main() {
     spinners: [{ success: true, text: 'Found the Figma file 👌' }, { text: 'Finding all Icons in the designs...' }],
   });
 
-  /* 2. Filter nodes for our Icons page */
-  const pagesToFetch = [
-    // {
-    //   fileName: '01. MyIcons',
-    //   icons: ['16 XS'],
-    //   type: 'icons',
-    //   name: 'xs',
-    // },
-    {
-      fileName: '03. Crypto',
-      icons: ['Icons'],
-      type: 'coins',
-      name: 'coins',
-    },
-  ];
-
-  let icons = {};
+  // /* 2. Filter nodes for our Icons page */
+  // const pagesToFetch = [
+  //   // {
+  //   //   fileName: '01. MyIcons',
+  //   //   icons: ['16 XS'],
+  //   //   type: 'icons',
+  //   //   name: 'xs',
+  //   // },
+  //   {
+  //     fileName: '03. Crypto',
+  //     icons: ['Icons'],
+  //     type: 'coins',
+  //     name: 'coins',
+  //   },
+  // ];
 
   const iconCryptoSet = getCryptoIcons(document);
   const baseIcons = getBaseIcons(document);
 
   console.log('iconSet', baseIcons);
 
-  return null;
-  pagesToFetch.forEach((pageToFetch) => {
-    const iconsCanvas = getPageByName(document, pageToFetch.fileName);
-    if (!iconsCanvas) {
-      throw new CodedError(
-        ERRORS.NO_ICONS_PAGE,
-        'Expected an "Icons" page to exist in the Figma File. Please rename your primary page to "Icons" if you have not already.'
-      );
-    }
+  const icons = [...baseIcons, ...iconCryptoSet].reduce((acc, item) => {
+    acc[item.id] = item;
+    return acc;
+  }, {} as IIcons);
 
-    console.log(pageToFetch.name, 'page fetched');
-    console.log('canvas', iconsCanvas);
+  // pagesToFetch.forEach(pageToFetch => {
+  //   const iconsCanvas = getPageByName(document, pageToFetch.fileName);
+  //   if (!iconsCanvas) {
+  //     throw new CodedError(
+  //       ERRORS.NO_ICONS_PAGE,
+  //       'Expected an "Icons" page to exist in the Figma File. Please rename your primary page to "Icons" if you have not already.'
+  //     );
+  //   }
 
-    /* 3. Transform the Icons page into a flat dictionary of icons, labeled by their path */
-    const newIcons = getIconsByNames(iconsCanvas, pageToFetch.icons[0], pageToFetch.type, pageToFetch.name);
+  //   console.log(pageToFetch.name, 'page fetched');
+  //   console.log('canvas', iconsCanvas);
 
-    icons = { ...icons, ...newIcons };
-  });
+  //   /* 3. Transform the Icons page into a flat dictionary of icons, labeled by their path */
+  //   const newIcons = getIconsByNames(iconsCanvas, pageToFetch.icons[0], pageToFetch.type, pageToFetch.name);
+
+  //   icons = { ...icons, ...newIcons };
+  // });
 
   const iconIds = Object.keys(icons);
 
-  console.log('ici');
-  return null;
+  // return null;
   if (!iconIds.length) {
     throw new CodedError(
       ERRORS.NO_ICONS_IN_SETS,
